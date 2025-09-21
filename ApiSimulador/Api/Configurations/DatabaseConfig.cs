@@ -1,10 +1,9 @@
-﻿namespace ApiSimulador.Api.Configurations
+﻿namespace ApiSimulador.Api.Configurations;
+
+public static class DatabaseConfig
 {
-    public static class DatabaseConfig
+    public static void AddDatabaseConfig(this WebApplicationBuilder builder)
     {
-        public static void AddDatabaseConfig(this WebApplicationBuilder builder)
-        {
-            //builder.Services.AddDbContext()
-        }
+        //builder.Services.AddDbContext()
     }
 }

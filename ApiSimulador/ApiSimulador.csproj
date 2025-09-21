@@ -9,7 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Include="Api\Models\Produtos\ProdutoModel.cs" />
+    <None Include="Api\Models\Produtos\CreateProdutoRequest.cs" />
   </ItemGroup>
 
   <ItemGroup>

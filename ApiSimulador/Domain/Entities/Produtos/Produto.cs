@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ApiSimulador.Domain.Entities.Produto;
+namespace ApiSimulador.Domain.Entities.Produtos;
 
 [Table("PRODUTO")]
 public class Produto

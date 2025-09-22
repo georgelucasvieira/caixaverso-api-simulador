@@ -7,11 +7,11 @@
     <UserSecretsId>1acc14ac-ba0b-4ed4-b9b9-549e88c2a533</UserSecretsId>
     <DockerDefaultTargetOS>Windows</DockerDefaultTargetOS>
   </PropertyGroup>
-
+	
   <ItemGroup>
-    <None Include="Api\Models\Produtos\CreateProdutoRequest.cs" />
+	<InternalsVisibleTo Include="ApiSimulador.Tests" />
   </ItemGroup>
-
+	
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
@@ -25,8 +25,6 @@
 	  <PackageReference Include="Swashbuckle.AspNetCore.Annotations" Version="9.0.3" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Infrastructure\Data\Migrations\" />
-  </ItemGroup>
+
 
 </Project>

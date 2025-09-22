@@ -7,7 +7,7 @@ public class CreateProdutoRequest
 {
     [Required]
     [JsonPropertyName("nomeProduto")]
-    public required string NomeProduto {  get; set; }
+    public string NomeProduto {  get; set; }
    
     [Required]
     [JsonPropertyName("prazoMaximoMeses")]

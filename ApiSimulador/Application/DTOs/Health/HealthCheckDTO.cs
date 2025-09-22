@@ -4,4 +4,5 @@ public class HealthCheckDto
 {
     public string Status { get; set; } = "Healthy";
     public DateTime Timestamp { get; set; } = DateTime.UtcNow;
+    public string? Message { get; set; }
 }

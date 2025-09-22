@@ -20,6 +20,17 @@ public class ProdutoService
         return produto.ToDTO();
     }
 
+    public async Task<List<ProdutoDTO>> FindAllPaginatedAsync(int pagina, int quantidade)
+    {
+        var produtos = await _produtoRepository.FindAllPaginatedAsync(pagina, quantidade);
+        return produtos.Select(produto => produto.ToDTO()).ToList();
+    }
+
+    public async Task<long> CountAllAsync()
+    {
+        return await _produtoRepository.CountAllAsync();
+    }
+
     public async Task<long> CreateProdutoAsync(ProdutoDTO produtoDto)
     {
         return await _produtoRepository.CreateAsync(produtoDto.ToEntity());

@@ -6,6 +6,7 @@ using ApiSimulador.Application.Services.Produtos;
 using ApiSimulador.Infrastructure.Repositories.Produtos;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Win32;
 
 namespace ApiSimulador.Api.Controllers.Produtos;
 
@@ -24,11 +25,26 @@ public class ProdutoV1Controller : ControllerBase
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ProdutoDTO))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiErrorResponse))]
     public async Task<IActionResult> FindAllPaginadoAsync(
-        [FromBody] CreateProdutoRequest request,
         [FromQuery] int? pagina,
         [FromQuery] int? quantidade)
     {
-        return Ok($"find all: pagina {pagina}, quantidade {quantidade}");
+        if (pagina is null or 0)
+            pagina = 1;
+        if (quantidade is null or 0)
+            quantidade = 10;
+        
+        var count = await _produtoService.CountAllAsync();
+        var produtos = await _produtoService.FindAllPaginatedAsync((int) pagina, (int) quantidade);
+
+        var response = new ApiPaginatedResponse<ProdutoDTO>
+        {
+            Pagina = (int) pagina,
+            QtdRegistros = count,
+            QtdRegistrosPagina = produtos.Count,
+            Registros = [.. produtos]
+        };
+
+        return Ok(response);
     }
 
     [HttpGet]

@@ -33,9 +33,18 @@ public class ProdutoRepository
         throw new NotImplementedException();
     }
 
-    public Task<IEnumerable<Produto>> FindAll()
+    public async Task<List<Produto>> FindAllPaginatedAsync(int pagina, int quantidade)
     {
-        throw new NotImplementedException();
+        return await _dbSet
+            .Skip((pagina - 1) * quantidade)
+            .Take(quantidade)
+            .AsNoTracking()
+            .ToListAsync();
+    }
+
+    public async Task<long> CountAllAsync()
+    {
+        return await _dbSet.CountAsync();
     }
 
     public async Task<Produto?> UpdateAsync(long id, Produto produtoAtualizado)

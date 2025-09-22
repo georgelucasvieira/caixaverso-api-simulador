@@ -2,6 +2,7 @@
 using ApiSimulador.Api.Models.Produtos;
 using ApiSimulador.Application.Common.Constants;
 using ApiSimulador.Application.DTOs.Produtos;
+using ApiSimulador.Application.Interfaces.Services;
 using ApiSimulador.Application.Services.Produtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -12,8 +13,8 @@ namespace ApiSimulador.Api.Controllers.Produtos;
 [Produces("application/json")]
 public class ProdutoV1Controller : ControllerBase
 {
-    private readonly ProdutoService _produtoService;
-    public ProdutoV1Controller(ProdutoService produtoService)
+    private readonly IProdutoService _produtoService;
+    public ProdutoV1Controller(IProdutoService produtoService)
     {
         _produtoService = produtoService;
     }

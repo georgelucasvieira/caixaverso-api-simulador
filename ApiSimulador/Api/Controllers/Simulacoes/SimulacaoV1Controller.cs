@@ -1,6 +1,7 @@
 ﻿using ApiSimulador.Api.Models.Common;
 using ApiSimulador.Api.Models.Simulacoes;
 using ApiSimulador.Application.Common.Constants;
+using ApiSimulador.Application.Interfaces.Services;
 using ApiSimulador.Application.Services.Produtos;
 using ApiSimulador.Application.Services.Simulacoes;
 using Microsoft.AspNetCore.Mvc;
@@ -11,10 +12,10 @@ namespace ApiSimulador.Api.Controllers.Simulacoes;
 [Produces("application/json")]
 public class SimulacaoV1Controller: ControllerBase
 {
-    private readonly ProdutoService _produtoService;
+    private readonly IProdutoService _produtoService;
     private readonly SimulacaoService _simulacaoService;
 
-    public SimulacaoV1Controller(ProdutoService produtoService, SimulacaoService simulacaoService)
+    public SimulacaoV1Controller(IProdutoService produtoService, SimulacaoService simulacaoService)
     {
         _produtoService = produtoService;
         _simulacaoService = simulacaoService;

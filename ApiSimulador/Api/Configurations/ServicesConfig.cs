@@ -1,4 +1,6 @@
-﻿using ApiSimulador.Application.Services.Produtos;
+﻿using ApiSimulador.Application.Interfaces.Repositories;
+using ApiSimulador.Application.Interfaces.Services;
+using ApiSimulador.Application.Services.Produtos;
 using ApiSimulador.Application.Services.Simulacoes;
 using ApiSimulador.Infrastructure.Repositories.Produtos;
 
@@ -8,8 +10,8 @@ public static class ServicesConfig
 {
     public static void AddServicesConfig(this IServiceCollection services)
     {
-        services.AddScoped<ProdutoService>();
+        services.AddScoped<IProdutoService,ProdutoService>();
         services.AddScoped<SimulacaoService>();
-        services.AddScoped<ProdutoRepository>();
+        services.AddScoped<IProdutoRepository, ProdutoRepository>();
     }
 }

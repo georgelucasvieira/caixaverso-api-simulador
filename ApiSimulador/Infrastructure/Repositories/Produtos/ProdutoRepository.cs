@@ -1,11 +1,12 @@
 ﻿using ApiSimulador.Application.DTOs.Produtos;
+using ApiSimulador.Application.Interfaces.Repositories;
 using ApiSimulador.Domain.Entities.Produtos;
 using ApiSimulador.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace ApiSimulador.Infrastructure.Repositories.Produtos;
 
-public class ProdutoRepository
+public class ProdutoRepository : IProdutoRepository
 {
     private readonly ApplicationDbContext _dbContext;
     private readonly DbSet<Produto> _dbSet;

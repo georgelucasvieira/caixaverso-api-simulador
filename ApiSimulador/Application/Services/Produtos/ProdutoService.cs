@@ -1,14 +1,16 @@
 ﻿using ApiSimulador.Application.DTOs.Produtos;
+using ApiSimulador.Application.Interfaces.Repositories;
+using ApiSimulador.Application.Interfaces.Services;
 using ApiSimulador.Application.Mappers;
 using ApiSimulador.Infrastructure.Repositories.Produtos;
 
 namespace ApiSimulador.Application.Services.Produtos;
 
-public class ProdutoService
+public class ProdutoService: IProdutoService
 {
-    private readonly ProdutoRepository _produtoRepository;
+    private readonly IProdutoRepository _produtoRepository;
 
-    public ProdutoService(ProdutoRepository produtoRepository) 
+    public ProdutoService(IProdutoRepository produtoRepository) 
     {
         _produtoRepository = produtoRepository;
     }

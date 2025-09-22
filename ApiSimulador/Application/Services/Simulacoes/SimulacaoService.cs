@@ -40,13 +40,13 @@ public class SimulacaoService
     {
         simulacao.MemoriaCalculos = new List<MemoriaCalculoDTO>();
         var saldoDevedor = valorSolicitado;
-        for (int i = 1; i <= simulacao.PrazoMeses; i++)
+        for (int mes = 1; mes <= simulacao.PrazoMeses; mes++)
         {
             var juros = Math.Round(saldoDevedor * simulacao.TaxaJurosEfetivaMensal, 2);
             var amortizacao = Math.Round(simulacao.ParcelaMensal - juros, 2);
             var saldoDevedorInicial = saldoDevedor;
 
-            if (simulacao.PrazoMeses == i) 
+            if (simulacao.PrazoMeses == mes) 
             {
                 amortizacao = saldoDevedor;
                 juros = simulacao.ParcelaMensal - amortizacao;
@@ -59,7 +59,7 @@ public class SimulacaoService
 
             var calculo = new MemoriaCalculoDTO
             {
-                Mes = i,
+                Mes = mes,
                 SaldoDevedorInicial = saldoDevedorInicial,
                 SaldoDevedorFinal = saldoDevedor,
                 Juros = juros,

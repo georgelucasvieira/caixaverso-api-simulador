@@ -8,4 +8,9 @@ public class ApiErrorResponse
 
     [JsonPropertyName("mensagem")]
     public string? Mensagem { get; set; }
+
+    public ApiErrorResponse(string mensagem)
+    {
+        Mensagem = mensagem;
+    }
 }

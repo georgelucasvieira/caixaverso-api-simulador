@@ -13,6 +13,14 @@ public class ProdutoService
         _produtosRepository = produtoRepository;
     }
 
+    public async Task<ProdutoDTO?> GetByIdAsync(long id)
+    {
+        var produto = await _produtosRepository.GetByIdAsync(id);
+        if(produto is null)
+            return null;
+        return produto.ToDTO();
+    }
+
     public async Task<long> CreateProdutoAsync(ProdutoDTO produtoDto)
     {
         return await _produtosRepository.CreateAsync(produtoDto.ToEntity());

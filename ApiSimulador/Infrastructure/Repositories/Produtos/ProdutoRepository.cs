@@ -15,6 +15,11 @@ public class ProdutoRepository
         _dbSet = _dbContext.Produtos;
     }
 
+    public async Task<Produto?> GetByIdAsync(long id)
+    {
+        return await _dbSet.FirstOrDefaultAsync(p => p.CoProduto == id);
+    }
+
     public async Task<long> CreateAsync(Produto produto)
     {
         await _dbSet.AddAsync(produto);

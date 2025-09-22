@@ -10,6 +10,7 @@ namespace ApiSimulador.Api.Controllers.Simulacoes;
 [ApiController]
 [Route(Paths.SimulacaoV1)]
 [Produces("application/json")]
+[Tags("Simulacao")]
 public class SimulacaoV1Controller: ControllerBase
 {
     private readonly IProdutoService _produtoService;

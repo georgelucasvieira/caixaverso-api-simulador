@@ -11,6 +11,7 @@ namespace ApiSimulador.Api.Controllers.Produtos;
 [ApiController]
 [Route(Paths.ProdutoV1)]
 [Produces("application/json")]
+[Tags("Produtos")]
 public class ProdutoV1Controller : ControllerBase
 {
     private readonly IProdutoService _produtoService;

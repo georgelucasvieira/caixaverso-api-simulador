@@ -10,8 +10,8 @@ public static class ServicesConfig
 {
     public static void AddServicesConfig(this IServiceCollection services)
     {
-        services.AddScoped<IProdutoService,ProdutoService>();
-        services.AddScoped<SimulacaoService>();
+        services.AddScoped<ISimulacaoService, SimulacaoService>();
+        services.AddScoped<IProdutoService, ProdutoService>();
         services.AddScoped<IProdutoRepository, ProdutoRepository>();
     }
 }

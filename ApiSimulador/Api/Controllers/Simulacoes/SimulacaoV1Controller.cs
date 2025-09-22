@@ -13,9 +13,9 @@ namespace ApiSimulador.Api.Controllers.Simulacoes;
 public class SimulacaoV1Controller: ControllerBase
 {
     private readonly IProdutoService _produtoService;
-    private readonly SimulacaoService _simulacaoService;
+    private readonly ISimulacaoService _simulacaoService;
 
-    public SimulacaoV1Controller(IProdutoService produtoService, SimulacaoService simulacaoService)
+    public SimulacaoV1Controller(IProdutoService produtoService, ISimulacaoService simulacaoService)
     {
         _produtoService = produtoService;
         _simulacaoService = simulacaoService;

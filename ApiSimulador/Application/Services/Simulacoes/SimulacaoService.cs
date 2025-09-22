@@ -1,9 +1,10 @@
 ﻿using ApiSimulador.Application.DTOs.Produtos;
 using ApiSimulador.Application.DTOs.Simulacoes;
+using ApiSimulador.Application.Interfaces.Services;
 
 namespace ApiSimulador.Application.Services.Simulacoes;
 
-public class SimulacaoService
+public class SimulacaoService : ISimulacaoService
 {
     public SimulacaoDTO SimularTabelaPrice(ProdutoDTO produto, decimal valorSolicitado, int prazoMeses)
     {

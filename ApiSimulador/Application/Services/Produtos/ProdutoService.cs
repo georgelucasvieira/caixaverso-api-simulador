@@ -45,4 +45,9 @@ public class ProdutoService
         if (produtoAtualizado is null) return null;
         return produtoAtualizado.ToDTO();
     }
+
+    public async Task<bool> DeleteProdutoAsync(long id)
+    {
+        return await _produtoRepository.DeleteAsync(id);
+    }
 }

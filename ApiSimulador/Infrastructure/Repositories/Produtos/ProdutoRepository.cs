@@ -28,9 +28,11 @@ public class ProdutoRepository
         return produto.CoProduto;
     }
 
-    public Task<int> Delete(int id)
+    public async Task<bool> DeleteAsync(long id)
     {
-        throw new NotImplementedException();
+        var rowsAffected = await _dbSet.Where(produto => produto.CoProduto == id)
+            .ExecuteDeleteAsync();
+        return rowsAffected != 0;
     }
 
     public async Task<List<Produto>> FindAllPaginatedAsync(int pagina, int quantidade)

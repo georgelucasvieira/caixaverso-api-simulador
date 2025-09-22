@@ -3,10 +3,7 @@ using ApiSimulador.Api.Models.Produtos;
 using ApiSimulador.Application.Common.Constants;
 using ApiSimulador.Application.DTOs.Produtos;
 using ApiSimulador.Application.Services.Produtos;
-using ApiSimulador.Infrastructure.Repositories.Produtos;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Win32;
 
 namespace ApiSimulador.Api.Controllers.Produtos;
 
@@ -22,8 +19,8 @@ public class ProdutoV1Controller : ControllerBase
     }
 
     [HttpGet]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ProdutoDTO))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiErrorResponse))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProdutoDTO))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiDefaultResponse))]
     public async Task<IActionResult> FindAllPaginadoAsync(
         [FromQuery] int? pagina,
         [FromQuery] int? quantidade)
@@ -49,19 +46,19 @@ public class ProdutoV1Controller : ControllerBase
 
     [HttpGet]
     [Route("{id}")]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ProdutoDTO))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiErrorResponse))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProdutoDTO))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiDefaultResponse))]
     public async Task<IActionResult> GetAsync(long id)
     {
         var produtoDto = await _produtoService.GetByIdAsync(id);
         if (produtoDto is null)
-            return BadRequest(new ApiErrorResponse("produto não encontrado"));    
+            return BadRequest(new ApiDefaultResponse(false, "produto não encontrado"));    
         return Ok(produtoDto);
     }
 
     [HttpPost]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ProdutoDTO))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiErrorResponse))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiDefaultResponse))]
     public async Task<IActionResult> CreateAsync([FromBody] CreateProdutoRequest request)
     {
         var produtoDto = new ProdutoDTO
@@ -77,8 +74,8 @@ public class ProdutoV1Controller : ControllerBase
 
     [HttpPut]
     [Route("{id}")]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ProdutoDTO))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiErrorResponse))]
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProdutoDTO))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiDefaultResponse))]
     public async Task<IActionResult> UpdateAsync([FromBody] UpdateProdutoRequest request, long id)
     {
         var produtoDto = new ProdutoDTO
@@ -89,16 +86,19 @@ public class ProdutoV1Controller : ControllerBase
         };
         var produtoAtualizadoDto = await _produtoService.UpdateProdutoAsync(id, produtoDto);
         if (produtoAtualizadoDto is null)
-            return BadRequest(new ApiErrorResponse("Não foi possível atualizar o produto"));
+            return BadRequest(new ApiDefaultResponse(false, "não foi possível atualizar o produto"));
         return Ok(produtoAtualizadoDto);
     }
 
     [HttpDelete]
     [Route("{id}")]
-    [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ProdutoDTO))]
-    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiErrorResponse))]
-    public async Task<IActionResult> DeleteAsync(int id)
+    [ProducesResponseType(StatusCodes.Status200OK, Type = typeof(ProdutoDTO))]
+    [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiDefaultResponse))]
+    public async Task<IActionResult> DeleteAsync(long id)
     {
-        return Ok("deleted");
+        var sucesso = await _produtoService.DeleteProdutoAsync(id);
+        if(!sucesso)
+            return BadRequest("não foi possível deletar o produto");
+        return Ok(new ApiDefaultResponse(true, "produto deletado com sucesso"));
     }
 }

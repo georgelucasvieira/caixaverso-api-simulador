@@ -1,16 +1,17 @@
 ﻿using System.Text.Json.Serialization;
 
 namespace ApiSimulador.Api.Models.Common;
-public class ApiErrorResponse
+public class ApiDefaultResponse
 {
     [JsonPropertyName("sucesso")]
-    public bool Sucesso { get; set; } = false;
+    public bool Sucesso { get; set; }
 
     [JsonPropertyName("mensagem")]
     public string? Mensagem { get; set; }
 
-    public ApiErrorResponse(string mensagem)
+    public ApiDefaultResponse(bool sucesso, string mensagem)
     {
         Mensagem = mensagem;
+        Sucesso = sucesso;
     }
 }

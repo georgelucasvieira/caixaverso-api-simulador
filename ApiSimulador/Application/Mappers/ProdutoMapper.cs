@@ -22,8 +22,19 @@ public static class ProdutoMapper
         {
             CoProduto = dto.CoProduto,
             Nome = dto.NomeProduto!,
-            TaxaJurosAnual = dto.TaxaJurosAnual,
-            PrazoMaximoMeses = dto.PrazoMaximoMeses
+            TaxaJurosAnual = (decimal) dto.TaxaJurosAnual!,
+            PrazoMaximoMeses = (int) dto.PrazoMaximoMeses!
         };
     }
+
+    public static void ToUpdatedEntity(this Produto produto, ProdutoDTO produtoAtualizado)
+    {
+        if (produtoAtualizado.TaxaJurosAnual is not null && produtoAtualizado.TaxaJurosAnual != 0)
+            produto.TaxaJurosAnual = (decimal) produtoAtualizado.TaxaJurosAnual!;
+        if (produtoAtualizado.NomeProduto is not null)
+            produto.Nome = produtoAtualizado.NomeProduto;
+        if(produtoAtualizado.PrazoMaximoMeses is not null && produtoAtualizado.PrazoMaximoMeses != 0)
+            produto.PrazoMaximoMeses = (int) produtoAtualizado.PrazoMaximoMeses!;
+    }
+
 }

@@ -63,9 +63,18 @@ public class ProdutoV1Controller : ControllerBase
     [Route("{id}")]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ProdutoDTO))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiErrorResponse))]
-    public async Task<IActionResult> UpdateAsync([FromBody] UpdateProdutoRequest request, int id)
+    public async Task<IActionResult> UpdateAsync([FromBody] UpdateProdutoRequest request, long id)
     {
-        return Ok($"updated, id: {id}");
+        var produtoDto = new ProdutoDTO
+        {
+            NomeProduto = request.NomeProduto,
+            PrazoMaximoMeses = request.PrazoMaximoMeses,
+            TaxaJurosAnual = request.TaxaJurosAnual
+        };
+        var produtoAtualizadoDto = await _produtoService.UpdateProdutoAsync(id, produtoDto);
+        if (produtoAtualizadoDto is null)
+            return BadRequest(new ApiErrorResponse("Não foi possível atualizar o produto"));
+        return Ok(produtoAtualizadoDto);
     }
 
     [HttpDelete]

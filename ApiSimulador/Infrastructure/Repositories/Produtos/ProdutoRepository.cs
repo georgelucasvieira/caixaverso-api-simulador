@@ -1,4 +1,5 @@
-﻿using ApiSimulador.Domain.Entities.Produtos;
+﻿using ApiSimulador.Application.DTOs.Produtos;
+using ApiSimulador.Domain.Entities.Produtos;
 using ApiSimulador.Infrastructure.Data.Contexts;
 using Microsoft.EntityFrameworkCore;
 
@@ -37,8 +38,14 @@ public class ProdutoRepository
         throw new NotImplementedException();
     }
 
-    public Task<Produto> Update(Produto produto)
+    public async Task<Produto?> UpdateAsync(long id, Produto produtoAtualizado)
     {
-        throw new NotImplementedException();
+        var rowsAffected = await _dbSet.Where(produto => produto.CoProduto == id)
+            .ExecuteUpdateAsync(updates =>
+                updates.SetProperty(produto => produto.TaxaJurosAnual, produtoAtualizado.TaxaJurosAnual)
+                       .SetProperty(produto => produto.PrazoMaximoMeses, produtoAtualizado.PrazoMaximoMeses)
+                       .SetProperty(produto => produto.Nome, produtoAtualizado.Nome));
+
+        return rowsAffected != 0 ? produtoAtualizado : null;
     }
 }

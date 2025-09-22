@@ -1,8 +1,12 @@
-﻿namespace ApiSimulador.Application.DTOs.Produtos;
+﻿using System.ComponentModel.DataAnnotations;
+using System.Text.Json.Serialization;
+
+namespace ApiSimulador.Application.DTOs.Produtos;
 
 public class ProdutoDTO
 {
-    public long Id { get; set; }
-    public decimal ValorSolicitado  { get; set; }
-    public int PrazoMeses { get; set; }
+    public long CoProduto { get; set; }
+    public string? NomeProduto { get; set; }
+    public int PrazoMaximoMeses { get; set; }
+    public decimal TaxaJurosAnual { get; set; }
 }

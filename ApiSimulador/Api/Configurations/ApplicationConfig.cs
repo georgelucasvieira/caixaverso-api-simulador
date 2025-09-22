@@ -1,8 +1,5 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace ApiSimulador.Api.Configurations;
 
-[ExcludeFromCodeCoverage]
 public static class ApplicationConfig
 {
     public static void AddApplicationConfig(this WebApplicationBuilder builder)
@@ -10,6 +7,8 @@ public static class ApplicationConfig
         builder.Services.AddControllers();
         builder.Services.AddCorsConfig();
         builder.Services.AddOpenAPIConfig();
+        builder.Services.AddDatabaseConfig();
+        builder.Services.AddServicesConfig();
     }
 
     public static void UseApplicationConfig(this WebApplication app)

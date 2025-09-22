@@ -3,7 +3,7 @@
 namespace ApiSimulador.Api.Models.Produtos;
 public class ProdutoDetailResponse
 {
-    [JsonPropertyName("id")]
+    [JsonPropertyName("idProduto")]
     public long Id { get; set; }
 
     [JsonPropertyName("nomeProduto")]

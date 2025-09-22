@@ -1,8 +1,5 @@
-using System.Diagnostics.CodeAnalysis;
-
 namespace ApiSimulador.Api.Configurations;
 
-[ExcludeFromCodeCoverage]
 public static class CorsConfig
 {
     private static readonly string CorsPolicyName = "CorsPolicy";

@@ -1,12 +1,25 @@
 ﻿using ApiSimulador.Domain.Entities.Produtos;
+using ApiSimulador.Infrastructure.Data.Contexts;
+using Microsoft.EntityFrameworkCore;
 
 namespace ApiSimulador.Infrastructure.Repositories.Produtos;
 
 public class ProdutoRepository
 {
-    public Task<int> Create(Produto produto)
+    private readonly ApplicationDbContext _dbContext;
+    private readonly DbSet<Produto> _dbSet;
+
+    public ProdutoRepository(ApplicationDbContext dbContext)
     {
-        throw new NotImplementedException();
+        _dbContext = dbContext;
+        _dbSet = _dbContext.Produtos;
+    }
+
+    public async Task<long> CreateAsync(Produto produto)
+    {
+        await _dbSet.AddAsync(produto);
+        await _dbContext.SaveChangesAsync();
+        return produto.CoProduto;
     }
 
     public Task<int> Delete(int id)

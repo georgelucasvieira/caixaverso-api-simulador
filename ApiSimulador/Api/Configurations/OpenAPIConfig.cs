@@ -1,10 +1,8 @@
 using Microsoft.OpenApi.Models;
-using System.Diagnostics.CodeAnalysis;
 using System.Reflection;
 
 namespace ApiSimulador.Api.Configurations;
 
-[ExcludeFromCodeCoverage]
 public static class OpenAPIConfig
 {
     public static void AddOpenAPIConfig(this IServiceCollection services)

@@ -8,7 +8,7 @@ public class Produto
 {
     [Key]
     [Column("CO_PRODUTO")]
-    public int CoProduto { get; set; }
+    public long CoProduto { get; set; }
 
     [Required]
     [Column("NO_PRODUTO")]

@@ -1,6 +1,10 @@
 ﻿using ApiSimulador.Api.Models.Common;
 using ApiSimulador.Api.Models.Produtos;
 using ApiSimulador.Application.Common.Constants;
+using ApiSimulador.Application.DTOs.Produtos;
+using ApiSimulador.Application.Services.Produtos;
+using ApiSimulador.Infrastructure.Repositories.Produtos;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ApiSimulador.Api.Controllers.Produtos;
@@ -10,6 +14,12 @@ namespace ApiSimulador.Api.Controllers.Produtos;
 [Produces("application/json")]
 public class ProdutoV1Controller : ControllerBase
 {
+    private readonly ProdutoService _produtoService;
+    public ProdutoV1Controller(ProdutoService produtoService)
+    {
+        _produtoService = produtoService;
+    }
+
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status201Created, Type = typeof(ProdutoDetailResponse))]
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiErrorResponse))]
@@ -35,7 +45,22 @@ public class ProdutoV1Controller : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest, Type = typeof(ApiErrorResponse))]
     public async Task<IActionResult> CreateAsync([FromBody] CreateProdutoRequest request)
     {
-        return Ok("created");
+        var produtoDto = new ProdutoDTO
+        {
+            NomeProduto = request.NomeProduto,
+            TaxaJurosAnual = request.TaxaJurosAnual,
+            PrazoMaximoMeses = request.PrazoMaximoMeses,
+        };
+        var coProduto = await _produtoService.CreateProdutoAsync(produtoDto);
+
+        var response = new ProdutoDetailResponse
+        {
+            Id = coProduto,
+            NomeProduto = produtoDto.NomeProduto,
+            PrazoMaximoMeses = produtoDto.PrazoMaximoMeses,
+            TaxaJurosAnual = produtoDto.TaxaJurosAnual
+        };
+        return Created($"{Paths.ProdutoV1}/{coProduto}", response);
     }
 
     [HttpPut]
